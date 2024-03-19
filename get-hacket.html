@@ -1,18 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Document
-  </title>
-  <link href="style.css" rel="stylesheet"/>
- </head>
- <body>
-  <h1>
-   <div class="this-is">
-    Gratulation, you just got hacked! (Just joking)
-   </div>
-  </h1>
- </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking in progress...</title>
+    <style>
+      body {
+        background-color: black;
+        color: green;
+        font-family: monospace;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-top: 10%;
+      }
+
+      .blinking-cursor::after {
+        content: '|';
+        animation: blink 0.7s infinite;
+      }
+
+      .typing-effect {
+        animation: typing 0.1s steps(40, end) infinite;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes typing {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hacking in progress<span class="blinking-cursor"></span></h1>
+    <h2><span class="typing-effect"></span></h2>
+
+    <script>
+      const typingTexts = [
+        'Scanning for vulnerabilities...',
+        'Executing exploit...',
+        'Bypassing security measures...',
+      ];
+
+      const typingElement = document.querySelector('.typing-effect');
+      const typingInterval = 20; // Milliseconds
+      const numIterations = 10;
+      let iterationCount = 0;
+
+      function typeRandomText() {
+        if (iterationCount >= numIterations) {
+          typingElement.textContent = 'Access granted! Hacking complete!';
+          setTimeout(() => {
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+          }, 1000);
+          return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * typingTexts.length);
+        const randomText = typingTexts[randomIndex];
+        typingElement.textContent = '';
+        let charIndex = 0;
+        const typingTimer = setInterval(() => {
+          if (charIndex < randomText.length) {
+            typingElement.textContent += randomText[charIndex];
+            charIndex++;
+          } else {
+            clearInterval(typingTimer);
+            setTimeout(typeRandomText, typingInterval);
+          }
+        }, typingInterval);
+
+        iterationCount++;
+      }
+
+      setTimeout(typeRandomText, 3000);
+    </script>
+  </body>
 </html>
